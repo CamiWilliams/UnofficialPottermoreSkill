@@ -1,0 +1,41 @@
+{
+    "type": "APL",
+    "version": "1.0",
+    "theme": "dark",
+    "import": [
+        {
+            "name": "cami-layouts-hp",
+            "source": "https://s3.amazonaws.com/cami-apl-sorter-quiz/layouts/cami-layouts-hp.json"
+        }
+    ],
+    "resources": [
+        {
+            "description": "Images for my skill",
+            "strings": {
+                "backgroundImg": "https://s3.amazonaws.com/cami-apl-sorter-quiz/images/woods.jpeg"
+            }
+        }
+    ],
+    "styles": {},
+    "layouts": {},
+    "mainTemplate": {
+        "items": [
+            {
+                "type": "Container",
+                "width": "100vw",
+                "height": "100vh",
+                "direction": "column",
+                "items": [
+                    {
+                        "type": "BackgroundImage",
+                        "imgSrc": "@backgroundImg"
+                    },
+                    {
+                        "type": "Text",
+                        "text": "Unofficial Pottermore Quiz"
+                    }
+                ]
+            }
+        ]
+    }
+}

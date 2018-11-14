@@ -1,0 +1,177 @@
+{
+    "type": "APL",
+    "version": "1.0",
+    "theme": "dark",
+    "import": [
+        {
+            "name": "alexa-viewport-profiles",
+            "version": "1.0.0"
+        }
+    ],
+    "resources": [
+        {
+            "description": "Images for my skill",
+            "strings": {
+                "backgroundImg": "https://s3.amazonaws.com/cami-apl-sorter-quiz/images/woods.jpeg"
+            }
+        },
+        {
+            "description": "Colors for Houses",
+            "strings": {
+                "slytherin": "#34dc0d",
+                "ravenclaw": "#4D84C5",
+                "hufflepuff": "#FFC836",
+                "gryffindor": "#AB322C"
+            }
+        },
+        {
+            "when": "${@viewportProfile == @hubLandscapeMedium || @viewportProfile == @hubLandscapeLarge || @viewportProfile == @tvLandscapeXLarge}",
+            "description": "Font sizes",
+            "dimensions": {
+                "resultsFontSize": "10vw"
+            }
+        },
+        {
+            "when": "${@viewportProfile == @hubRoundSmall}",
+            "description": "Font sizes",
+            "dimensions": {
+                "resultsFontSize": "14vw"
+            }
+        }
+    ],
+    "styles": {
+        "resultsStyle": {
+            "values": [
+                {
+                    "textAlign": "center",
+                    "color": "#FFFFFF",
+                    "fontSize": "@resultsFontSize"
+                }
+            ]
+        }
+    },
+    "layouts": {
+        "BackgroundImage": {
+            "parameters": [
+                "imgSrc"
+            ],
+            "items": [
+                {
+                    "type": "Image",
+                    "source": "${imgSrc}",
+                    "width": "100vw",
+                    "height": "100vh",
+                    "scale": "best-fill",
+                    "position": "absolute"
+                }
+            ]
+        }
+    },
+    "mainTemplate": {
+        "parameters": [
+            "datasource"
+        ],
+        "items": [
+            {
+                "type": "Container",
+                "width": "100vw",
+                "height": "100vh",
+                "direction": "column",
+                "items": [
+                    {
+                        "type": "BackgroundImage",
+                        "imgSrc": "@backgroundImg"
+                    },
+                    {
+                        "when": "${datasource.quizData.properties.result == 'Gryffindor'}",
+                        "type": "Text",
+                        "text": "${datasource.quizData.properties.result}",
+                        "color": "@gryffindor",
+                        "style": "resultsStyle",
+                        "paddingTop": "10vh"
+                    },
+                    {
+                        "when": "${datasource.quizData.properties.result == 'Hufflepuff'}",
+                        "type": "Text",
+                        "text": "${datasource.quizData.properties.result}",
+                        "color": "@hufflepuff",
+                        "style": "resultsStyle",
+                        "paddingTop": "10vh"
+                    },
+                    {
+                        "when": "${datasource.quizData.properties.result == 'Ravenclaw'}",
+                        "type": "Text",
+                        "text": "${datasource.quizData.properties.result}",
+                        "color": "@ravenclaw",
+                        "style": "resultsStyle",
+                        "paddingTop": "10vh"
+                    },
+                    {
+                        "when": "${datasource.quizData.properties.result == 'Slytherin'}",
+                        "type": "Text",
+                        "text": "${datasource.quizData.properties.result}",
+                        "color": "@slytherin",
+                        "style": "resultsStyle",
+                        "paddingTop": "10vh"
+                    },
+                    {
+                        "when": "${@viewportProfile == @hubLandscapeMedium || @viewportProfile == @hubLandscapeLarge}",
+                        "type": "Sequence",
+                        "data": "${datasource.quizData.properties.percentages}",
+                        "width": "100vw",
+                        "height": "60vh",
+                        "paddingTop": "10vh",
+                        "paddingBottom": "10vh",
+                        "item": {
+                            "type": "Text",
+                            "text": "${data.name}: ${data.percent}%",
+                            "color": "#FFFFFF",
+                            "width": "90vw",
+                            "textAlign": "center",
+                            "textAlignVertical": "center",
+                            "fontSize": "5vw"
+                        }
+                    },
+                    {
+                        "when": "${@viewportProfile == @tvLandscapeXLarge}",
+                        "type": "Container",
+                        "width": "100vw",
+                        "height": "60vh",
+                        "direction": "row",
+                        "items": [
+                            {
+                                "type": "ScrollView",
+                                "width": "50vw",
+                                "height": "60vh",
+                                "item": {
+                                    "type": "Text",
+                                    "text": "${datasource.quizData.properties.outputSpeech}",
+                                    "width": "50vw",
+                                    "paddingLeft": "5vw",
+                                    "fontSize": "4vw"
+                                }
+                            },
+                            {
+                                "type": "Sequence",
+                                "data": "${datasource.quizData.properties.percentages}",
+                                "width": "50vw",
+                                "height": "60vh",
+                                "paddingTop": "10vh",
+                                "paddingBottom": "10vh",
+                                "item": {
+                                    "type": "Text",
+                                    "text": "${data.name}: ${data.percent}%",
+                                    "color": "#FFFFFF",
+                                    "width": "90vw",
+                                    "textAlign": "center",
+                                    "textAlignVertical": "center",
+                                    "fontSize": "5vw"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

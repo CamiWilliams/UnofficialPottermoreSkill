@@ -1,0 +1,25 @@
+{
+    "type": "APL",
+    "version": "1.0",
+    "theme": "dark",
+    "import": [],
+    "resources": [],
+    "styles": {},
+    "layouts": {
+        "BackgroundImage": {
+            "parameters": [
+                "imgSrc"
+            ],
+            "items": [
+                {
+                    "type": "Image",
+                    "source": "${imgSrc}",
+                    "width": "100vw",
+                    "height": "100vh",
+                    "scale": "best-fill",
+                    "position": "absolute"
+                }
+            ]
+        }
+    }
+}

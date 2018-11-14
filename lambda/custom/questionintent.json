@@ -1,0 +1,198 @@
+{
+    "type": "APL",
+    "version": "1.0",
+    "theme": "dark",
+    "import": [
+        {
+            "name": "alexa-viewport-profiles",
+            "version": "1.0.0"
+        }
+    ],
+    "resources": [
+        {
+            "description": "Images for my skill",
+            "strings": {
+                "backgroundImg": "https://s3.amazonaws.com/cami-apl-sorter-quiz/images/woods.jpeg"
+            }
+        },
+        {
+            "when": "${@viewportProfile == @hubLandscapeMedium || @viewportProfile == @hubLandscapeLarge || @viewportProfile == @tvLandscapeXLarge}",
+            "description": "Font sizes",
+            "dimensions": {
+                "questionFontSize": "3vw"
+            }
+        },
+        {
+            "when": "${@viewportProfile == @hubRoundSmall}",
+            "description": "Font sizes",
+            "dimensions": {
+                "questionFontSize": "8vw"
+            }
+        }
+    ],
+    "styles": {
+        "questionStyle": {
+            "values": [
+                {
+                    "textAlign": "center",
+                    "color": "#FFFFFF",
+                    "fontSize": "@questionFontSize"
+                }
+            ]
+        }
+    },
+    "layouts": {
+        "BackgroundImage": {
+            "parameters": [
+                "imgSrc"
+            ],
+            "items": [
+                {
+                    "type": "Image",
+                    "source": "${imgSrc}",
+                    "width": "100vw",
+                    "height": "100vh",
+                    "scale": "best-fill",
+                    "position": "absolute"
+                }
+            ]
+        }
+    },
+    "mainTemplate": {
+        "parameters": [
+            "datasource"
+        ],
+        "items": [
+            {
+                "type": "Container",
+                "width": "100vw",
+                "height": "100vh",
+                "direction": "column",
+                "items": [
+                    {
+                        "type": "BackgroundImage",
+                        "imgSrc": "@backgroundImg"
+                    },
+                    {
+                        "when": "${@viewportProfile == @hubRoundSmall}",
+                        "type": "Pager",
+                        "id": "pagerComponentId",
+                        "width": "100vw",
+                        "height": "100vh",
+                        "items": [
+                            {
+                                "type": "Frame",
+                                "width": "100vw",
+                                "backgroundColor": "rgba(0,0,0,0.5)",
+                                "item": {
+                                    "type": "ScrollView",
+                                    "width": "100vw",
+                                    "height": "100vw",
+                                    "item": {
+                                        "type": "Text",
+                                        "text": "${datasource.quizData.properties.question}",
+                                        "paddingTop": "20vh",
+                                        "paddingLeft": "5vw",
+                                        "paddingRight": "5vw",
+                                        "paddingBottom": "10vh",
+                                        "style": "questionStyle"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "Sequence",
+                                "data": "${datasource.quizData.properties.choices}",
+                                "width": "100vw",
+                                "height": "100vh",
+                                "paddingTop": "20vh",
+                                "paddingBottom": "20vh",
+                                "numbered": true,
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "componentId": "touchId",
+                                    "width": "100vw",
+                                    "height": "35vh",
+                                    "paddingBottom": "1vh",
+                                    "item": {
+                                        "type": "Frame",
+                                        "width": "100vw",
+                                        "height": "35vh",
+                                        "backgroundColor": "rgba(250,250,250,0.8)",
+                                        "item": {
+                                            "type": "Text",
+                                            "text": "${ordinal}. ${data}",
+                                            "color": "#000000",
+                                            "height": "35vh",
+                                            "width": "90vw",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center",
+                                            "fontSize": "8vw"
+                                        }
+                                    },
+                                    "onPress": {
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "${data}"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "when": "${@viewportProfile == @hubLandscapeMedium || @viewportProfile == @hubLandscapeLarge || @viewportProfile == @tvLandscapeXLarge}",
+                        "type": "Frame",
+                        "width": "100vw",
+                        "backgroundColor": "rgba(0,0,0,0.5)",
+                        "item": {
+                            "type": "Text",
+                            "text": "${datasource.quizData.properties.question}",
+                            "paddingTop": "3vh",
+                            "paddingBottom": "3vh",
+                            "paddingLeft": "3vw",
+                            "paddingRight": "3vw",
+                            "style": "questionStyle"
+                        }
+                    },
+                    {
+                        "when": "${@viewportProfile == @hubLandscapeMedium || @viewportProfile == @hubLandscapeLarge || @viewportProfile == @tvLandscapeXLarge}",
+                        "type": "Sequence",
+                        "data": "${datasource.quizData.properties.choices}",
+                        "width": "100vw",
+                        "height": "70vh",
+                        "numbered": true,
+                        "item": {
+                            "type": "TouchWrapper",
+                            "componentId": "touchId",
+                            "width": "100vw",
+                            "height": "16vh",
+                            "paddingBottom": "1vh",
+                            "item": {
+                                "type": "Frame",
+                                "width": "100vw",
+                                "height": "15vh",
+                                "borderRadius": "30vh",
+                                "backgroundColor": "rgba(250,250,250,0.8)",
+                                "item": {
+                                    "type": "Text",
+                                    "text": "${ordinal}. ${data}",
+                                    "color": "#000000",
+                                    "height": "15vh",
+                                    "textAlign": "center",
+                                    "textAlignVertical": "center",
+                                    "fontSize": "3.5vw"
+                                }
+                            },
+                            "onPress": {
+                                "type": "SendEvent",
+                                "arguments": [
+                                    "${data}"
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

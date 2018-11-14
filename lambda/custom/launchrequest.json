@@ -1,0 +1,148 @@
+{
+    "type": "APL",
+    "version": "1.0",
+    "theme": "dark",
+    "import": [
+        {
+            "name": "alexa-viewport-profiles",
+            "version": "1.0.0"
+        }
+    ],
+    "resources": [
+        {
+            "description": "Images for my skill",
+            "strings": {
+                "backgroundImg": "https://s3.amazonaws.com/cami-apl-sorter-quiz/images/woods.jpeg"
+            }
+        },
+        {
+            "when": "${@viewportProfile == @hubLandscapeMedium || @viewportProfile == @hubLandscapeLarge || @viewportProfile == @tvLandscapeXLarge}",
+            "description": "Font sizes",
+            "dimensions": {
+                "headerFontSize": "6vw"
+            }
+        },
+        {
+            "when": "${@viewportProfile == @hubRoundSmall}",
+            "description": "Font sizes",
+            "dimensions": {
+                "headerFontSize": "12vw"
+            }
+        }
+    ],
+    "styles": {
+        "headerStyle": {
+            "values": [
+                {
+                    "textAlign": "center",
+                    "color": "#D9D5D5",
+                    "fontSize": "@headerFontSize"
+                }
+            ]
+        }
+    },
+    "layouts": {
+        "BackgroundImage": {
+            "parameters": [
+                "imgSrc"
+            ],
+            "items": [
+                {
+                    "type": "Image",
+                    "source": "${imgSrc}",
+                    "width": "100vw",
+                    "height": "100vh",
+                    "scale": "best-fill",
+                    "position": "absolute"
+                }
+            ]
+        },
+        "PagerItem": {
+            "parameters": [
+                "title",
+                "subtitle"
+            ],
+            "items": [
+                {
+                    "type": "Container",
+                    "width": "100vw",
+                    "height": "50vh",
+                    "direction": "column",
+                    "alignItems": "center",
+                    "items": [
+                        {
+                            "type": "Text",
+                            "text": "${title}",
+                            "fontSize": "3.5vw",
+                            "textAlign": "center",
+                            "paddingBottom": "3vh",
+                            "color": "#D9D5D5"
+                        },
+                        {
+                            "type": "Frame",
+                            "width": "70vw",
+                            "height": "0.5vh",
+                            "backgroundColor": "#D9D5D5"
+                        },
+                        {
+                            "type": "Text",
+                            "text": "${subtitle}",
+                            "fontSize": "2.5vw",
+                            "textAlign": "center",
+                            "width": "70vw",
+                            "paddingTop": "3vh",
+                            "color": "#D9D5D5"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "mainTemplate": {
+        "items": [
+            {
+                "type": "Container",
+                "width": "100vw",
+                "height": "100vh",
+                "direction": "column",
+                "items": [
+                    {
+                        "type": "BackgroundImage",
+                        "imgSrc": "@backgroundImg"
+                    },
+                    {
+                        "type": "Text",
+                        "text": "Unofficial Pottermore Quiz",
+                        "style": "headerStyle",
+                        "paddingTop": "25vh",
+                        "paddingBottom": "25vh"
+                    },
+                    {
+                        "when": "${@viewportProfile == @hubLandscapeMedium || @viewportProfile == @hubLandscapeLarge || @viewportProfile == @tvLandscapeXLarge}",
+                        "type": "Pager",
+                        "id": "pagerComponentId",
+                        "width": "100vw",
+                        "height": "50vh",
+                        "items": [
+                            {
+                                "type": "PagerItem",
+                                "title": "Get sorted into your Hogwarts House",
+                                "subtitle": "Sorts the students into one of the four Hogwarts houses, taken directly from Pottermore.com"
+                            },
+                            {
+                                "type": "PagerItem",
+                                "title": "The Sorting Hat",
+                                "subtitle": "Godric Gryffindor, Salazar Slytherin, Rowena Ravenclaw and Helga Hufflepuff bewitched it for Sorting purposes"
+                            },
+                            {
+                                "type": "PagerItem",
+                                "title": "The Official Pottermore",
+                                "subtitle": "All these quiz questions were taken directly from the official Pottermore quiz."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
